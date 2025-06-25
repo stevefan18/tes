@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./style.css">
+    <style>
+        table,
+        thead,
+        th,
+        td,
+        tr {
+            border : 1px solid black;
+            border-collapse: collapse;
+        }
+        table{
+            width : 800px
+        }
+    </style>
+</head>
+<body>
+    <button>Ambil Data</button>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Comment</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+</body>
+    <script src="./jquery-3.7.1.min.js"></script>
+    <script>
+        const btnAmbilData = $("button");
+        btnAmbilData.on("click",()=>{
+         $.ajax({
+            url: "https://jsonplaceholder.typicode.com/comments",
+            method: "GET",
+            success: function(response){
+                for (let i = 0; i<= response.length; i++){
+                    $("tbody").append(`<tr>
+                        <td>${response[i]["Id"]}</td>
+                        <td>${response[i]["name"]}</td>
+                        <td>${response[i]["email"]}</td>
+                        <td>${response[i]["body"]}</td>
+                        `);
+                    console.log(response[i]["body"])
+                }
+            },
+            error : function(xhr,status,msg){
+                alert("Gagal Ambil Data")
+            },
+         });
+        })
+    </script>
+</html>
